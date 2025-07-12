@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Smash or Pass at Leap</title>
+<style>
+  body {
+    font-family: Arial, sans-serif;
+    background: #f5f5f5;
+    text-align: center;
+    padding: 20px;
+  }
+  h1 {
+    color: #333;
+  }
+  .card {
+    background: white;
+    border-radius: 10px;
+    padding: 20px;
+    margin: 20px auto;
+    width: 300px;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.2);
+    position: relative;
+    overflow: hidden;
+  }
+  img {
+    max-width: 100%;
+    border-radius: 10px;
+    opacity: 0;
+    transform: scale(0.95);
+    transition: opacity 0.5s ease, transform 0.5s ease;
+  }
+  img.show {
+    opacity: 1;
+    transform: scale(1);
+  }
+  button {
+    padding: 10px 20px;
+    margin: 10px;
+    border: none;
+    border-radius: 8px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: transform 0.2s ease;
+  }
+  button:active {
+    transform: scale(0.9);
+  }
+  .smash {
+    background: #4CAF50;
+    color: white;
+  }
+  .pass {
+    background: #f44336;
+    color: white;
+  }
+  .votes {
+    margin-top: 10px;
+    font-weight: bold;
+  }
+</style>
+</head>
+<body>
+<h1>Smash or Pass at Leap</h1>
+<p>Her mirror</p>
+
+<div class="card" id="photoCard">
+  <img src="https://via.placeholder.com/300x400?text=Girl+1" id="photo" alt="Person">
+  <div>
+    <button class="smash" onclick="vote('smash')">Smash</button>
+    <button class="pass" onclick="vote('pass')">Pass</button>
+  </div>
+  <div class="votes">
+    Smash: <span id="smashCount">0</span> |
+    Pass: <span id="passCount">0</span>
+  </div>
+</div>
+
+<script>
+  const photos = [
+    {id: 'girl1', src: 'https://via.placeholder.com/300x400?text=Girl+1'},
+    {id: 'girl2', src: 'https://via.placeholder.com/300x400?text=Girl+2'},
+    {id: 'girl3', src: 'https://via.placeholder.com/300x400?text=Girl+3'},
+    {id: 'girl4', src: 'https://via.placeholder.com/300x400?text=Girl+4'},
+    {id: 'girl5', src: 'https://via.placeholder.com/300x400?text=Girl+5'},
+    {id: 'girl6', src: 'https://via.placeholder.com/300x400?text=Girl+6'},
+    {id: 'girl7', src: 'https://via.placeholder.com/300x400?text=Girl+7'},
+    {id: 'girl8', src: 'https://via.placeholder.com/300x400?text=Girl+8'},
+    {id: 'girl9', src: 'https://via.placeholder.com/300x400?text=Girl+9'},
+    {id: 'girl10', src: 'https://via.placeholder.com/300x400?text=Girl+10'},
+    {id: 'girl11', src: 'https://via.placeholder.com/300x400?text=Girl+11'},
+    {id: 'girl12', src: 'https://via.placeholder.com/300x400?text=Girl+12'},
+    {id: 'girl13', src: 'https://via.placeholder.com/300x400?text=Girl+13'},
+    {id: 'girl14', src: 'https://via.placeholder.com/300x400?text=Girl+14'},
+    {id: 'girl15', src: 'https://via.placeholder.com/300x400?text=Girl+15'},
+    {id: 'girl16', src: 'https://via.placeholder.com/300x400?text=Girl+16'},
+    {id: 'girl17', src: 'https://via.placeholder.com/300x400?text=Girl+17'},
+    {id: 'girl18', src: 'https://via.placeholder.com/300x400?text=Girl+18'},
+    {id: 'girl19', src: 'https://via.placeholder.com/300x400?text=Girl+19'},
+    {id: 'girl20', src: 'https://via.placeholder.com/300x400?text=Girl+20'},
+    {id: 'girl21', src: 'https://via.placeholder.com/300x400?text=Girl+21'},
+    {id: 'girl22', src: 'https://via.placeholder.com/300x400?text=Girl+22'},
+    {id: 'girl23', src: 'https://via.placeholder.com/300x400?text=Girl+23'},
+    {id: 'girl24', src: 'https://via.placeholder.com/300x400?text=Girl+24'},
+    {id: 'girl25', src: 'https://via.placeholder.com/300x400?text=Girl+25'},
+    {id: 'girl26', src: 'https://via.placeholder.com/300x400?text=Girl+26'},
+    {id: 'girl27', src: 'https://via.placeholder.com/300x400?text=Girl+27'},
+    {id: 'girl28', src: 'https://via.placeholder.com/300x400?text=Girl+28'},
+    {id: 'girl29', src: 'https://via.placeholder.com/300x400?text=Girl+29'},
+    {id: 'girl30', src: 'https://via.placeholder.com/300x400?text=Girl+30'},
+    {id: 'girl31', src: 'https://via.placeholder.com/300x400?text=Girl+31'},
+    {id: 'girl32', src: 'https://via.placeholder.com/300x400?text=Girl+32'},
+    {id: 'girl33', src: 'https://via.placeholder.com/300x400?text=Girl+33'},
+    {id: 'girl34', src: 'https://via.placeholder.com/300x400?text=Girl+34'},
+    {id: 'girl35', src: 'https://via.placeholder.com/300x400?text=Girl+35'},
+    {id: 'girl36', src: 'https://via.placeholder.com/300x400?text=Girl+36'},
+    {id: 'girl37', src: 'https://via.placeholder.com/300x400?text=Girl+37'},
+    {id: 'girl38', src: 'https://via.placeholder.com/300x400?text=Girl+38'},
+    {id: 'girl39', src: 'https://via.placeholder.com/300x400?text=Girl+39'},
+    {id: 'girl40', src: 'https://via.placeholder.com/300x400?text=Girl+40'},
+    {id: 'girl41', src: 'https://via.placeholder.com/300x400?text=Girl+41'},
+    {id: 'girl42', src: 'https://via.placeholder.com/300x400?text=Girl+42'},
+    {id: 'girl43', src: 'https://via.placeholder.com/300x400?text=Girl+43'},
+    {id: 'girl44', src: 'https://via.placeholder.com/300x400?text=Girl+44'},
+    {id: 'girl45', src: 'https://via.placeholder.com/300x400?text=Girl+45'},
+    {id: 'girl46', src: 'https://via.placeholder.com/300x400?text=Girl+46'},
+    {id: 'girl47', src: 'https://via.placeholder.com/300x400?text=Girl+47'},
+    {id: 'girl48', src: 'https://via.placeholder.com/300x400?text=Girl+48'},
+    {id: 'girl49', src: 'https://via.placeholder.com/300x400?text=Girl+49'},
+    {id: 'girl50', src: 'https://via.placeholder.com/300x400?text=Girl+50'}
+  ];
+
+  let currentIndex = 0;
+  let votes = {};
+
+  function loadPhoto() {
+    const photo = photos[currentIndex];
+    const img = document.getElementById('photo');
+    img.classList.remove('show');
+
+    setTimeout(() => {
+      img.src = photo.src;
+      if (!votes[photo.id]) {
+        votes[photo.id] = {smash: 0, pass: 0};
+      }
+      document.getElementById('smashCount').innerText = votes[photo.id].smash;
+      document.getElementById('passCount').innerText = votes[photo.id].pass;
+
+      const voted = localStorage.getItem('voted_' + photo.id);
+      voted ? disableButtons() : enableButtons();
+
+      img.classList.add('show');
+    }, 200);
+  }
+
+  function vote(type) {
+    const photo = photos[currentIndex];
+    const voteKey = 'voted_' + photo.id;
+    if (localStorage.getItem(voteKey)) return;
+
+    votes[photo.id][type]++;
+    localStorage.setItem(voteKey, type);
+    animateVote(type);
+    loadPhoto();
+  }
+
+  function animateVote(type) {
+    const btn = document.querySelector('.' + type);
+    btn.style.transform = 'scale(1.2)';
+    setTimeout(() => btn.style.transform = 'scale(1)', 200);
+  }
+
+  function disableButtons() {
+    document.querySelectorAll('button').forEach(btn => btn.disabled = true);
+  }
+
+  function enableButtons() {
+    document.querySelectorAll('button').forEach(btn => btn.disabled = false);
+  }
+
+  document.addEventListener('click', function(e) {
+    if (e.target.tagName === 'BUTTON') {
+      setTimeout(() => {
+        currentIndex = (currentIndex + 1) % photos.length;
+        loadPhoto();
+      }, 500);
+    }
+  });
+
+  window.onload = loadPhoto;
+</script>
+</body>
+</html>
